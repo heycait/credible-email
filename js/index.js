@@ -2,7 +2,38 @@ SG = 'caitlyn'
 SGKEY = 'e4wBqrclz,8Y'
 MD = '04d0NW4LZO0Y4lLJca_iZA'
 
-// $document.ready(function(){
+
+
+$(document).ready(function(){
+  $('#discard-email').on('click', function(){
+    $('html').find('#email-form')[0].reset();
+  });
+
+  $('#save-draft').on('click', function(e){
+    e.preventDefault();
+
+    var userObject = {  'userEmail': sessionStorage.getItem('email');
+                        'recipients': $('#inputRecipients').val(),
+                        'subject': $('#inputSubject').val(),
+                        'message': $('#inputEmailText').val(),
+                     }
+
+    localStorage.setItem('userObject', JSON.stringify(userObject));
+    // var retrievedObject = localStorage.getItem('userObject');
+    // console.log('retrievedObject: ', JSON.parse(retrievedObject));
+
+  });
+
+  // $('#email-form').on('submit', function(){
+  //   $('html').find('#email-form')[0].reset();
+  // });
+
+// localStorage.clear();
+
+})
+
+
+// $(document).ready(function(){
 
 //   var sendGridUrl = 'https://api.sendgrid.com/api/mail.send.json'
 
