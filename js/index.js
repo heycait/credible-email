@@ -5,6 +5,24 @@ MD = '04d0NW4LZO0Y4lLJca_iZA'
 
 
 $(document).ready(function(){
+
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
+
+  $('#submit-user-email').on('click', function(e){
+      var input = $('#user-email-form').find('input[name=user-email]').val();
+      if (input === "") {
+        e.preventDefault();
+
+        $('#submit-user-email').popover('show');
+
+        setTimeout(function(){ $('#submit-user-email').popover('hide') }, 2000);
+      } else {
+        $('#userEmailModal').modal('hide');
+      }
+  });
+
   $('#discard-email').on('click', function(){
     $('html').find('#email-form')[0].reset();
   });
@@ -12,7 +30,7 @@ $(document).ready(function(){
   $('#save-draft').on('click', function(e){
     e.preventDefault();
 
-    var userObject = {  'userEmail': sessionStorage.getItem('email');
+    var userObject = {  'userEmail': sessionStorage.getItem('email'),
                         'recipients': $('#inputRecipients').val(),
                         'subject': $('#inputSubject').val(),
                         'message': $('#inputEmailText').val(),

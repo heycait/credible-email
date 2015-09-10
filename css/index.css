@@ -52,3 +52,6 @@ header h1 {
   color: #449d44;
 }
 
+.modal-footer {
+  border: none;
+}
