@@ -29,6 +29,10 @@ $(document).ready(function(){
       }
   });
 
+  $('#logout').on('click', function(){
+    sessionStorage.clear();
+  });
+
   $('#discard-email').on('click', function(){
     $('html').find('#email-form')[0].reset();
   });
