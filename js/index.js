@@ -19,6 +19,12 @@ $(document).ready(function(){
 
         setTimeout(function(){ $('#submit-user-email').popover('hide') }, 2000);
       } else {
+
+        var userObject = { 'recipients': '',
+                           'subject': '',
+                          'message': ''}
+        localStorage.setItem(input, JSON.stringify(userObject));
+        sessionStorage.setItem('user', input);
         $('#userEmailModal').modal('hide');
       }
   });
