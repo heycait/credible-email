@@ -55,3 +55,11 @@ header h1 {
 .modal-footer {
   border: none;
 }
+
+#logged-out {
+  display: block;
+  margin: 5em auto;
+  width: 50%;
+  height: 50%;
+  font-size: 2em;
+}

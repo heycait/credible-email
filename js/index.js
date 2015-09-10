@@ -6,9 +6,8 @@ MD = '04d0NW4LZO0Y4lLJca_iZA'
 
 $(document).ready(function(){
 
-  $(function () {
-    $('[data-toggle="popover"]').popover()
-  })
+  $('[data-toggle="popover"]').popover();
+
 
   $('#submit-user-email').on('click', function(e){
       var input = $('#user-email-form').find('input[name=user-email]').val();
@@ -31,6 +30,9 @@ $(document).ready(function(){
 
   $('#logout').on('click', function(){
     sessionStorage.clear();
+    $('.logged-in-content').hide();
+    $('.logged-out').show();
+
   });
 
   $('#discard-email').on('click', function(){
