@@ -1,0 +1,54 @@
+header{
+  top: 0;
+  width: 100%;
+  background-color: #f7f7f7;
+  font-family: 'Open Sans', sans-serif;
+  padding: 0.5%;
+}
+
+header h1 {
+  padding: 0;
+  margin: 0;
+}
+
+.logo-green {
+  color: #5cb85c;
+}
+
+.logo-yellow {
+  color: #f0ad4e;
+}
+
+.logo-red {
+  color: #d9534f;
+}
+
+#logout {
+  float: right;
+  margin-right: 0.25%;
+  margin-top: 0.25%;
+}
+
+
+#action-buttons {
+  position: relative;
+  padding: 1%;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+#compose-email {
+  width: 50%;
+  padding: 2% 2% 2% 1%;
+  border: 1px solid #dddddd;
+}
+
+.centered {
+  display: block;
+  margin: 0 auto;
+}
+
+#sent-emails{
+  color: #449d44;
+}
+

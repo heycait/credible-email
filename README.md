@@ -1,8 +1,5 @@
 # Credible code-challenge
 
-Coding Challenge Guidelines
-===========================
-
 Please organize, design, test, document and deploy your code as if it were
 going into production, then send us a link to the hosted repository (e.g.
 Github, Bitbucket...).
@@ -79,3 +76,34 @@ Host it!
 
 When you’re done, host it somewhere (e.g. on Amazon EC2, Heroku, Google
 AppEngine, etc.).
+
+
+<!-- Keep solution as simple as possible
+Clean UI
+make app work correctly
+detailed thought process
+last one is *document thought process -->
+
+User Flow:
+User 'logs in' using their email address in an initial 'Welcome to Credible Email. Please enter your email address.' Store this in sessionStorage or localStorage
+Page 'swipes' to the side to reveal the email form requiring recipient email addresses, subject, and body
+User either trashes the email, saves a draft, or sends it.
+Trashing email results in an alert to confirm and completely clearing the form.
+Drafting saves the input to localStorage and will repopulate the form when the same email address 'logs in'
+Sending involves a new page showing the sent email then a button to go back to email form
+maybe have a section under the email form that shows their 5 most recently sent emails?
+'logging out' removes the user's email from sessionStorage.
+validations for all email input as well as ensuring all fields in form are filled out
+
+Pure JS:
+Use localStorage to save drafts of messages
+Use localStorage to store copies of sent messages
+
+Backbone
+Use for saving drafts on change?
+Use for viewing sent messages that are stored in localStorage
+
+
+Thought I needed to use Backbone since the directions recommended using it for frontend MVC. I chose to do the email client which doesn't necessarily require any additional library of functionality such as data-binding. Decided to create an app using pure JavaScript combined with jQuery and Ajax.
+
+Then I remembered the reason I was considering a frontend framework in the first place. Automatic drafting and allow the users to see messages they already sent (this would be stored in the browser's localStorage as this seems to be a more difficult task using the APIs itself or require writing my own backend to gather this specific information for each user based on their entered email address). Not sure if this is even possible using SendGrid though.
