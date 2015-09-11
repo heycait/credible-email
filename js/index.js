@@ -75,13 +75,13 @@ $(document).ready(function(){
     //                     'subject': $('#inputSubject').val(),
     //                     'message': $('#inputEmailText').val(),
     //                  }
-
     // localStorage.setItem('userObject', JSON.stringify(userObject));
-
-
     // var retrievedObject = localStorage.getItem('userObject');
     // console.log('retrievedObject: ', JSON.parse(retrievedObject));
+  });
 
+  $('#email-form').submit(function(){
+    //  if successful, clear localStorage data for the user
   });
 })
 
