@@ -76,8 +76,6 @@ $(document).ready(function(){
                        text: $('#inputEmailText').val()};
 
     sendMandrill(userEmail, formObject);
-    // Mandrill Response:
-    // [{email: "caitlyn.yu@icloud.com", status: "sent", _id: "3e03c77ede454deb87a2e36a1993096a", reject_reason: null}, ...]
 
     // reset localStorage and delete any saved drafts
     setStorage(userEmail);
@@ -142,10 +140,15 @@ function sendGrid(userEmail, formObject){
   formObject.api_key = SGKEY;
   formObject.from = userEmail
 
+  dataObj = decodeURIComponent($.param(formObject));
+
+
   var request = $.ajax({
     url: 'https://api.sendgrid.com/api/mail.send.json',
     method: 'POST',
-    data: {}
+    data: dataObj
+  }).done(function(response){
+    return response;
   }); // end of ajax
 
   //SendGrid
@@ -157,7 +160,7 @@ function sendGrid(userEmail, formObject){
   // text=testingtextbody&
   // from=info@domain.com
 
-  // Response
+  // Example SendGrid Response
   // {"message": "success"}
 }; // end of sendGrid funct
 
@@ -185,48 +188,6 @@ function sendMandrill(userEmail, formObject){
       return error
   });
 
-  // Response:
+  // Example Mandrill Response:
   // [{email: "caitlyn.yu@icloud.com", status: "sent", _id: "3e03c77ede454deb87a2e36a1993096a", reject_reason: null}]
 };
-
-
-
-//SendGrid
-// api_user=your_sendgrid_username
-// api_key=your_sendgrid_password
-// to[]=destination@example.com
-// subject=Example_Subject
-// text=testingtextbody
-// from=info@domain.com
-
-// Response
-// {"message": "success"}
-
-
-// Mandrill
-// to
-// from
-// subject
-// text
-
-// var sendEmail = function(){
-//   var email = new mandrill.Mandrill(process.env.API_KEY);
-//   var params = {
-//       "message": {
-//           "from_email": sessionStorage.getItem('email'),
-//           "to":[{"email":$scope.emailAddress}],
-//           "subject": "My Todo List",
-//           "text": "My Todo List \n\n",
-//       }
-//   };
-//   email.messages.send(params, function(result) {
-//       console.log(result);
-//   }, function(error) {
-//       console.log(error);
-//   });
-
-//   $scope.emailAddress = '';
-// };
-
-// Response:
-// [{email: "caitlyn.yu@icloud.com", status: "sent", _id: "3e03c77ede454deb87a2e36a1993096a", reject_reason: null}]
