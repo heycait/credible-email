@@ -8,26 +8,6 @@ $(document).ready(function(){
 
   $('[data-toggle="popover"]').popover();
 
-  function login(input){
-    sessionStorage.setItem('user', input);
-    $('#userEmailModal').modal('hide');
-    var jsonObject = localStorage.getItem(input);
-    var userObject = JSON.parse(jsonObject);
-
-    $('#inputRecipients').val(userObject.recipients);
-    $('#inputSubject').val(userObject.subject);
-    $('#inputEmailText').val(userObject.message);
-  };
-
-  function signup(input){
-    var userObject = { 'recipients': '',
-                       'subject': '',
-                       'message': ''}
-    localStorage.setItem(input, JSON.stringify(userObject));
-    sessionStorage.setItem('user', input);
-    $('#userEmailModal').modal('hide');
-  };
-
   $('#submit-user-email').on('click', function(e){
       var input = $('#user-email-form').find('input[name=user-email]').val();
       if (input === "") {
@@ -42,24 +22,7 @@ $(document).ready(function(){
         } else {
           signup(input)
         };
-        // if(localStorage.getItem(input)){
-        //   sessionStorage.setItem('user', input);
-        //   $('#userEmailModal').modal('hide');
-        //   var jsonObject = localStorage.getItem(input);
-        //   var userObject = JSON.parse(jsonObject);
-
-        //   $('#inputRecipients').val(userObject.recipients);
-        //   $('#inputSubject').val(userObject.subject);
-        //   $('#inputEmailText').val(userObject.message);
-        // } else {
-        //   var userObject = { 'recipients': '',
-        //                      'subject': '',
-        //                      'message': ''}
-        //   localStorage.setItem(input, JSON.stringify(userObject));
-        //   sessionStorage.setItem('user', input);
-        //   $('#userEmailModal').modal('hide');
-        // };
-      }
+      };
   });
 
   $('#logout').on('click', function(){
@@ -112,7 +75,25 @@ $(document).ready(function(){
 })
 
 
+function login(input){
+  sessionStorage.setItem('user', input);
+  $('#userEmailModal').modal('hide');
+  var jsonObject = localStorage.getItem(input);
+  var userObject = JSON.parse(jsonObject);
 
+  $('#inputRecipients').val(userObject.recipients);
+  $('#inputSubject').val(userObject.subject);
+  $('#inputEmailText').val(userObject.message);
+};
+
+function signup(input){
+  var userObject = { 'recipients': '',
+                     'subject': '',
+                     'message': ''}
+  localStorage.setItem(input, JSON.stringify(userObject));
+  sessionStorage.setItem('user', input);
+  $('#userEmailModal').modal('hide');
+};
 
 //   var sendGridUrl = 'https://api.sendgrid.com/api/mail.send.json'
 
