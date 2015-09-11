@@ -8,6 +8,25 @@ $(document).ready(function(){
 
   $('[data-toggle="popover"]').popover();
 
+  function login(input){
+    sessionStorage.setItem('user', input);
+    $('#userEmailModal').modal('hide');
+    var jsonObject = localStorage.getItem(input);
+    var userObject = JSON.parse(jsonObject);
+
+    $('#inputRecipients').val(userObject.recipients);
+    $('#inputSubject').val(userObject.subject);
+    $('#inputEmailText').val(userObject.message);
+  };
+
+  function signup(input){
+    var userObject = { 'recipients': '',
+                       'subject': '',
+                       'message': ''}
+    localStorage.setItem(input, JSON.stringify(userObject));
+    sessionStorage.setItem('user', input);
+    $('#userEmailModal').modal('hide');
+  };
 
   $('#submit-user-email').on('click', function(e){
       var input = $('#user-email-form').find('input[name=user-email]').val();
@@ -19,22 +38,27 @@ $(document).ready(function(){
         setTimeout(function(){ $('#submit-user-email').popover('hide') }, 2000);
       } else {
         if(localStorage.getItem(input)){
-          sessionStorage.setItem('user', input);
-          $('#userEmailModal').modal('hide');
-          var jsonObject = localStorage.getItem(input);
-          var userObject = JSON.parse(jsonObject);
-
-          $('#inputRecipients').val(userObject.recipients);
-          $('#inputSubject').val(userObject.subject);
-          $('#inputEmailText').val(userObject.message);
+          login(input)
         } else {
-          var userObject = { 'recipients': '',
-                             'subject': '',
-                             'message': ''}
-          localStorage.setItem(input, JSON.stringify(userObject));
-          sessionStorage.setItem('user', input);
-          $('#userEmailModal').modal('hide');
+          signup(input)
         };
+        // if(localStorage.getItem(input)){
+        //   sessionStorage.setItem('user', input);
+        //   $('#userEmailModal').modal('hide');
+        //   var jsonObject = localStorage.getItem(input);
+        //   var userObject = JSON.parse(jsonObject);
+
+        //   $('#inputRecipients').val(userObject.recipients);
+        //   $('#inputSubject').val(userObject.subject);
+        //   $('#inputEmailText').val(userObject.message);
+        // } else {
+        //   var userObject = { 'recipients': '',
+        //                      'subject': '',
+        //                      'message': ''}
+        //   localStorage.setItem(input, JSON.stringify(userObject));
+        //   sessionStorage.setItem('user', input);
+        //   $('#userEmailModal').modal('hide');
+        // };
       }
   });
 
@@ -43,7 +67,7 @@ $(document).ready(function(){
     // sessionStorage.clear();
     $('html').find('#email-form')[0].reset();
     $('.logged-in-content').hide();
-    $('.logged-out').show();
+    $('#logged-out').show();
     $('#login').show();
   });
 
@@ -51,7 +75,7 @@ $(document).ready(function(){
     $('#userEmailModal').modal('show');
 
     $('.logged-in-content').show();
-    $('.logged-out').hide();
+    $('#logged-out').hide();
     $('#login').hide();
   });
 
@@ -69,7 +93,7 @@ $(document).ready(function(){
     parsedObject.message = $('#inputEmailText').val();
 
     localStorage.setItem(userEmail, JSON.stringify(parsedObject));
-    // debugger
+    // How to access and update "object" in localStorage
     // var userObject = {  'userEmail': sessionStorage.getItem('email'),
     //                     'recipients': $('#inputRecipients').val(),
     //                     'subject': $('#inputSubject').val(),
@@ -82,11 +106,13 @@ $(document).ready(function(){
 
   $('#email-form').submit(function(){
     //  if successful, clear localStorage data for the user
+
+
   });
 })
 
 
-// $(document).ready(function(){
+
 
 //   var sendGridUrl = 'https://api.sendgrid.com/api/mail.send.json'
 
