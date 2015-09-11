@@ -32,6 +32,7 @@ $(document).ready(function(){
     sessionStorage.clear();
     $('.logged-in-content').hide();
     $('.logged-out').show();
+    $('#login').show();
 
   });
 
