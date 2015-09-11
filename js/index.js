@@ -51,16 +51,16 @@ $(document).ready(function(){
     var userEmail = sessionStorage.getItem('user');
     var userObject = localStorage.getItem(userEmail);
     var parsedObject = JSON.parse(userObject);
-    parsedObject.recipients = $('#inputRecipients').val();
+    parsedObject.to = $('#inputRecipients').val();
     parsedObject.subject = $('#inputSubject').val();
-    parsedObject.message = $('#inputEmailText').val();
+    parsedObject.text = $('#inputEmailText').val();
 
     localStorage.setItem(userEmail, JSON.stringify(parsedObject));
     // How to access and update "object" in localStorage
     // var userObject = {  'userEmail': sessionStorage.getItem('email'),
-    //                     'recipients': $('#inputRecipients').val(),
+    //                     'to': $('#inputRecipients').val(),
     //                     'subject': $('#inputSubject').val(),
-    //                     'message': $('#inputEmailText').val(),
+    //                     'text': $('#inputEmailText').val(),
     //                  }
     // localStorage.setItem('userObject', JSON.stringify(userObject));
     // var retrievedObject = localStorage.getItem('userObject');
@@ -71,9 +71,9 @@ $(document).ready(function(){
     e.preventDefault();
     //  if successful, clear localStorage data for the user
     var userEmail = sessionStorage.getItem('user');
-    var formObject = { recipients: $('#inputRecipients').val().split(/[ ,]+/),
+    var formObject = { to: $('#inputRecipients').val().split(/[ ,]+/),
                        subject: $('#inputSubject').val(),
-                       message: $('#inputEmailText').val()};
+                       text: $('#inputEmailText').val()};
 
     sendMandrill(userEmail, formObject);
     // Mandrill Response:
@@ -95,7 +95,7 @@ $(document).ready(function(){
     // debugger
     // check if all emails were successfully sent
     // result from Mandrill call not being returned successfully.. can't do a proper check
-    // for (var i = 0; i < formObject.recipients.length; i++){
+    // for (var i = 0; i < formObject.to.length; i++){
     //   if (result[i]['status'] === 'error'){
     //     result = false
     //   };
@@ -119,15 +119,15 @@ function login(input){
   var jsonObject = localStorage.getItem(input);
   var userObject = JSON.parse(jsonObject);
 
-  $('#inputRecipients').val(userObject.recipients);
+  $('#inputRecipients').val(userObject.to);
   $('#inputSubject').val(userObject.subject);
-  $('#inputEmailText').val(userObject.message);
+  $('#inputEmailText').val(userObject.text);
 };
 
 function setStorage(input){
-  var userObject = { 'recipients': '',
+  var userObject = { 'to': '',
                      'subject': '',
-                     'message': ''}
+                     'text': ''}
   localStorage.setItem(input, JSON.stringify(userObject));
 }
 
@@ -137,6 +137,30 @@ function signup(input){
   $('#userEmailModal').modal('hide');
 };
 
+function sendGrid(userEmail, formObject){
+  formObject.api_user = SG;
+  formObject.api_key = SGKEY;
+  formObject.from = userEmail
+
+  var request = $.ajax({
+    url: 'https://api.sendgrid.com/api/mail.send.json',
+    method: 'POST',
+    data: {}
+  }); // end of ajax
+
+  //SendGrid
+  // api_user=your_sendgrid_username&
+  // api_key=your_sendgrid_password&
+  // to[]=destination@example.com&toname[]=Destination&
+  // to[]=destination2@example.com&toname[]=Destination2&
+  // subject=Example_Subject&
+  // text=testingtextbody&
+  // from=info@domain.com
+
+  // Response
+  // {"message": "success"}
+}; // end of sendGrid funct
+
 function sendMandrill(userEmail, formObject){
   var email = new mandrill.Mandrill(MDK);
   var params = {
@@ -144,13 +168,13 @@ function sendMandrill(userEmail, formObject){
           "from_email": userEmail,
           "to":[],
           "subject": formObject.subject,
-          "text": formObject.message,
+          "text": formObject.text,
       }
   };
 
   // Adding multiple recipients to Mandrill call
-  for (var i = 0; i < formObject.recipients.length; i++){
-    params['message']['to'].push({"email": formObject.recipients[i]})
+  for (var i = 0; i < formObject.to.length; i++){
+    params['message']['to'].push({"email": formObject.to[i]})
   }
 
   email.messages.send(params, function(result) {
@@ -166,10 +190,6 @@ function sendMandrill(userEmail, formObject){
 };
 
 
-
-//   var sendGridUrl = 'https://api.sendgrid.com/api/mail.send.json'
-
-// })
 
 //SendGrid
 // api_user=your_sendgrid_username
