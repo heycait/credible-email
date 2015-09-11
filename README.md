@@ -20,6 +20,7 @@ Stretch Goals
 - [ ] Add proper validations
 - [ ] Allow users to see sent messages
 - [ ] Migrate from vanilla JS to Backbone
+- [ ] Switch over to SASS
 
 
 ### Deployed Application
