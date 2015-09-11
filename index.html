@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:700' rel='stylesheet' type='text/css'>
     <link href="css/index.css" rel="stylesheet" />
-    <!-- <link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet"> -->
-
   </head>
 
   <header>
@@ -33,8 +31,8 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h3 class="modal-title text-center" id="userModalLabel">Welcome to Credible Email!</h3>
-            <p class="text-center">Please enter your email address to continue.</p>
+            <h3 class="modal-title text-center" id="userModalLabel">Welcome to <span class='logo-green'>C</span><span class='logo-yellow'>r</span>e<span class='logo-red'>d</span><span class='logo-green'>i</span><span class='logo-yellow'>b</span>l<span class='logo-red'>e</span> <span class='logo-green'>E</span><span class='logo-yellow'>m</span>a<span class='logo-red'>i</span><span class='logo-green'>l</span></h3>
+            <p class="text-center">Please enter your email address to continue</p>
           </div>
           <div class="modal-body">
             <form id='user-email-form'>
@@ -50,7 +48,7 @@
 
 
     <section id='main' class='logged-in-content'>
-      <h3 class="text-center">Hello! Send a simple email using the </h3>
+      <h3 class="text-center"><em><strong>embrace simplicity</strong></em></h3>
       <div id='compose-email' class='centered'>
         <form id='email-form' class="form-horizontal" novalidate>
           <div class="form-group">
@@ -103,13 +101,14 @@
     <section id='sent-success'>
       <p class="text-center">Message sent!</p>
     </section>
-<!--     <section id='sent-emails' class='logged-in-content'>
+
+    <!--<section id='sent-emails' class='logged-in-content'>
       <h3>Sent Mail</h3>
-        make some kind of template here to show sent emails
+        make some kind of template here to show sent emails, fixed storage of sent emails in localStorage
     </section> -->
 
     <section id='logged-out'>
-      <p class="text-center">Thank you for using our service. Hope you enjoyed using Credible Email. Come again soon!</p>
+      <p class="text-center">Thank you for using <span class='logo-green'>C</span><span class='logo-yellow'>r</span>e<span class='logo-red'>d</span><span class='logo-green'>i</span><span class='logo-yellow'>b</span>l<span class='logo-red'>e</span> <span class='logo-green'>E</span><span class='logo-yellow'>m</span>a<span class='logo-red'>i</span><span class='logo-green'>l</span>. We hope to see you soon!</p>
     </section>
   </body>
 

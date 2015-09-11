@@ -14,14 +14,17 @@ Users can:
 - [X] Save drafts of unfinished emails
 - [X] Come back later and have a populated form with saved draft
 - [X] "Log out"
-- [ ] Send emails (to one or more recipients)
+- [X] Send emails (to one or more recipients)
 
 Stretch Goals
-- [ ] Add proper validations
+- [ ] Add proper validations (to login and email form)
 - [ ] Allow users to see sent messages
 - [ ] Migrate from vanilla JS to Backbone
 - [ ] Switch over to SASS
 
+
+<!-- Need to fix issue with popover showing up on valid input after entering invalid input -->
+<!-- Need to fix issue of page refresh and clearing populated form -->
 
 ### Deployed Application
 Credible Email can be accessed on Firebase at ___.
@@ -52,13 +55,3 @@ Thought I needed to use Backbone since the instructions recommended using it for
 Then I remembered the reason I was considering a frontend framework in the first place. Automatic drafting and allowing the users to see messages they already sent (this would be stored in the browser's localStorage as this seems to be a more difficult task using the APIs itself or require writing my own backend to gather this specific information for each user based on their entered email address). Not sure if this is even possible using SendGrid though.
 
 While I understand the benefits of using Backbone and organizing the code into MVC, or MV in the case of the Backbone library, I'd need more time to learn it to migrate this over.
-
-
-
-<!-- Keep solution as simple as possible
-Clean UI
-make app work correctly
-last one is *document detailed thought process -->
-
-<!-- Need to fix issue with popover showing up on valid input after entering invalid input -->
-<!-- Need to fix issue of page refresh and clearing populated form -->
