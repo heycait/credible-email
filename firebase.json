@@ -1,0 +1,9 @@
+{
+  "firebase": "credible-email",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

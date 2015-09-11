@@ -27,7 +27,7 @@ Stretch Goals
 <!-- Need to fix issue of page refresh and clearing populated form -->
 
 ### Deployed Application
-Credible Email can be accessed on Firebase at ___.
+Credible Email can be accessed on Firebase at https://credible-email.firebaseapp.com.
 
 
 ## Plans && Thought Process
