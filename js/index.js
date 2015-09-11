@@ -21,6 +21,12 @@ $(document).ready(function(){
         if(localStorage.getItem(input)){
           sessionStorage.setItem('user', input);
           $('#userEmailModal').modal('hide');
+          var jsonObject = localStorage.getItem(input);
+          var userObject = JSON.parse(jsonObject);
+
+          $('#inputRecipients').val(userObject.recipients);
+          $('#inputSubject').val(userObject.subject);
+          $('#inputEmailText').val(userObject.message);
         } else {
           var userObject = { 'recipients': '',
                              'subject': '',
