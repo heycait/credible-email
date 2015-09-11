@@ -23,10 +23,14 @@ header h1 {
   color: #d9534f;
 }
 
-#logout {
+#logout, #login {
   float: right;
   margin-right: 0.25%;
   margin-top: 0.25%;
+}
+
+#login {
+  display: none;
 }
 
 
@@ -52,3 +56,14 @@ header h1 {
   color: #449d44;
 }
 
+.modal-footer {
+  border: none;
+}
+
+#logged-out {
+  display: block;
+  margin: 5em auto;
+  width: 50%;
+  height: 50%;
+  font-size: 2em;
+}

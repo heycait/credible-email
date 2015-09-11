@@ -2,7 +2,91 @@ SG = 'caitlyn'
 SGKEY = 'e4wBqrclz,8Y'
 MD = '04d0NW4LZO0Y4lLJca_iZA'
 
-// $document.ready(function(){
+
+
+$(document).ready(function(){
+
+  $('[data-toggle="popover"]').popover();
+
+
+  $('#submit-user-email').on('click', function(e){
+      var input = $('#user-email-form').find('input[name=user-email]').val();
+      if (input === "") {
+        e.preventDefault();
+
+        $('#submit-user-email').popover('show');
+
+        setTimeout(function(){ $('#submit-user-email').popover('hide') }, 2000);
+      } else {
+        if(localStorage.getItem(input)){
+          sessionStorage.setItem('user', input);
+          $('#userEmailModal').modal('hide');
+          var jsonObject = localStorage.getItem(input);
+          var userObject = JSON.parse(jsonObject);
+
+          $('#inputRecipients').val(userObject.recipients);
+          $('#inputSubject').val(userObject.subject);
+          $('#inputEmailText').val(userObject.message);
+        } else {
+          var userObject = { 'recipients': '',
+                             'subject': '',
+                             'message': ''}
+          localStorage.setItem(input, JSON.stringify(userObject));
+          sessionStorage.setItem('user', input);
+          $('#userEmailModal').modal('hide');
+        };
+      }
+  });
+
+  $('#logout').on('click', function(){
+    sessionStorage.removeItem('user');
+    // sessionStorage.clear();
+    $('html').find('#email-form')[0].reset();
+    $('.logged-in-content').hide();
+    $('.logged-out').show();
+    $('#login').show();
+  });
+
+  $('#login').on('click', function(){
+    $('#userEmailModal').modal('show');
+
+    $('.logged-in-content').show();
+    $('.logged-out').hide();
+    $('#login').hide();
+  });
+
+  $('#discard-email').on('click', function(){
+    $('html').find('#email-form')[0].reset();
+  });
+
+  $('#save-draft').on('click', function(e){
+    e.preventDefault();
+    var userEmail = sessionStorage.getItem('user');
+    var userObject = localStorage.getItem(userEmail);
+    var parsedObject = JSON.parse(userObject);
+    parsedObject.recipients = $('#inputRecipients').val();
+    parsedObject.subject = $('#inputSubject').val();
+    parsedObject.message = $('#inputEmailText').val();
+
+    localStorage.setItem(userEmail, JSON.stringify(parsedObject));
+    // debugger
+    // var userObject = {  'userEmail': sessionStorage.getItem('email'),
+    //                     'recipients': $('#inputRecipients').val(),
+    //                     'subject': $('#inputSubject').val(),
+    //                     'message': $('#inputEmailText').val(),
+    //                  }
+    // localStorage.setItem('userObject', JSON.stringify(userObject));
+    // var retrievedObject = localStorage.getItem('userObject');
+    // console.log('retrievedObject: ', JSON.parse(retrievedObject));
+  });
+
+  $('#email-form').submit(function(){
+    //  if successful, clear localStorage data for the user
+  });
+})
+
+
+// $(document).ready(function(){
 
 //   var sendGridUrl = 'https://api.sendgrid.com/api/mail.send.json'
 
