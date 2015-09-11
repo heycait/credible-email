@@ -60,7 +60,7 @@ header h1 {
   border: none;
 }
 
-#logged-out {
+#logged-out, #sent-success {
   display: none;
   margin: 5em auto;
   width: 50%;
