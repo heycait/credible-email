@@ -33,7 +33,14 @@ $(document).ready(function(){
     $('.logged-in-content').hide();
     $('.logged-out').show();
     $('#login').show();
+  });
 
+  $('#login').on('click', function(){
+    $('#userEmailModal').modal('show');
+
+    $('.logged-in-content').show();
+    $('.logged-out').hide();
+    $('#login').hide();
   });
 
   $('#discard-email').on('click', function(){
