@@ -61,7 +61,7 @@ header h1 {
 }
 
 #logged-out {
-  display: block;
+  display: none;
   margin: 5em auto;
   width: 50%;
   height: 50%;

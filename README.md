@@ -27,10 +27,7 @@ Stretch Goals
 Credible Email can be accessed on Firebase at ___.
 
 
-Development Process
---------
-
-### Plans && Thought Process
+## Plans && Thought Process
 - User 'logs in' using their email address in an initial 'Welcome to Credible Email. Please enter your email address.' Store this in sessionStorage and localStorage
 - Page 'swipes' to the side to reveal the email form requiring recipient email addresses, subject, and body
   - This was changed to using a modal for logging in instead
@@ -47,8 +44,8 @@ Pure JS:
 - Use localStorage to store copies of the five most recently sent messages
 
 Backbone:
-Use for saving drafts on change?
-Use for viewing sent messages that are stored in localStorage
+- Use for saving drafts on change?
+- Use for viewing sent messages that are stored in localStorage
 
 Thought I needed to use Backbone since the instructions recommended using it for frontend MVC and spent some time looking into Backbone. I chose to do the email client which doesn't necessarily require any additional library or enhanced functionality so ended up deciding on an app using pure JavaScript combined with jQuery and Ajax.
 
@@ -62,3 +59,6 @@ While I understand the benefits of using Backbone and organizing the code into M
 Clean UI
 make app work correctly
 last one is *document detailed thought process -->
+
+<!-- Need to fix issue with popover showing up on valid input after entering invalid input -->
+<!-- Need to fix issue of page refresh and clearing populated form -->
