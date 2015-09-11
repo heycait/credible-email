@@ -18,18 +18,24 @@ $(document).ready(function(){
 
         setTimeout(function(){ $('#submit-user-email').popover('hide') }, 2000);
       } else {
-
-        var userObject = { 'recipients': '',
-                           'subject': '',
-                          'message': ''}
-        localStorage.setItem(input, JSON.stringify(userObject));
-        sessionStorage.setItem('user', input);
-        $('#userEmailModal').modal('hide');
+        if(localStorage.getItem(input)){
+          sessionStorage.setItem('user', input);
+          $('#userEmailModal').modal('hide');
+        } else {
+          var userObject = { 'recipients': '',
+                             'subject': '',
+                             'message': ''}
+          localStorage.setItem(input, JSON.stringify(userObject));
+          sessionStorage.setItem('user', input);
+          $('#userEmailModal').modal('hide');
+        };
       }
   });
 
   $('#logout').on('click', function(){
-    sessionStorage.clear();
+    sessionStorage.removeItem('user');
+    // sessionStorage.clear();
+    $('html').find('#email-form')[0].reset();
     $('.logged-in-content').hide();
     $('.logged-out').show();
     $('#login').show();
@@ -49,25 +55,28 @@ $(document).ready(function(){
 
   $('#save-draft').on('click', function(e){
     e.preventDefault();
+    var userEmail = sessionStorage.getItem('user');
+    var userObject = localStorage.getItem(userEmail);
+    var parsedObject = JSON.parse(userObject);
+    parsedObject.recipients = $('#inputRecipients').val();
+    parsedObject.subject = $('#inputSubject').val();
+    parsedObject.message = $('#inputEmailText').val();
 
-    var userObject = {  'userEmail': sessionStorage.getItem('email'),
-                        'recipients': $('#inputRecipients').val(),
-                        'subject': $('#inputSubject').val(),
-                        'message': $('#inputEmailText').val(),
-                     }
+    localStorage.setItem(userEmail, JSON.stringify(parsedObject));
+    // debugger
+    // var userObject = {  'userEmail': sessionStorage.getItem('email'),
+    //                     'recipients': $('#inputRecipients').val(),
+    //                     'subject': $('#inputSubject').val(),
+    //                     'message': $('#inputEmailText').val(),
+    //                  }
 
-    localStorage.setItem('userObject', JSON.stringify(userObject));
+    // localStorage.setItem('userObject', JSON.stringify(userObject));
+
+
     // var retrievedObject = localStorage.getItem('userObject');
     // console.log('retrievedObject: ', JSON.parse(retrievedObject));
 
   });
-
-  // $('#email-form').on('submit', function(){
-  //   $('html').find('#email-form')[0].reset();
-  // });
-
-// localStorage.clear();
-
 })
 
 
