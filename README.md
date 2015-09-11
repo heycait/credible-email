@@ -14,7 +14,7 @@ Users can:
 - [X] Save drafts of unfinished emails
 - [X] Come back later and have a populated form with saved draft
 - [X] "Log out"
-- [ ] Send emails
+- [ ] Send emails (to one or more recipients)
 
 Stretch Goals
 - [ ] Add proper validations
