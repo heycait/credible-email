@@ -72,7 +72,7 @@ $(document).ready(function(){
 
   $('#email-form').submit(function(e){
     e.preventDefault();
-    //  if successful, clear localStorage data for the user
+
     var recipients = $('#inputRecipients').val().split(/[ ,]+/);
     var subject = $('#inputSubject').val();
     var message = $('#inputEmailText').val();
@@ -86,6 +86,7 @@ $(document).ready(function(){
                        subject: subject,
                        text: message}
 
+    //  if successful, clear localStorage data for the user
     // sendMandrill(userEmail, formObject);
     // sendGrid(userEmail, formObject);
 
@@ -116,26 +117,32 @@ $(document).ready(function(){
 }) // end of doc ready
 
 function emptyFormCheck(recipients, subject, message){
-  var badInput = false;
+  var badInput;
 
   if (recipients[0] === ""){
     badInput = true
+    $('#recipients').removeClass('has-success has-feedback');
     $('#recipients').addClass('has-error has-feedback');
   } else {
+    $('#recipients').removeClass('has-error has-feedback');
     $('#recipients').addClass('has-success has-feedback');
   };
 
   if (subject.length === 0){
     badInput = true
+    $('#subject').removeClass('has-success has-feedback');
     $('#subject').addClass('has-error has-feedback');
   } else {
+    $('#subject').removeClass('has-error has-feedback');
     $('#subject').addClass('has-success has-feedback');
   };
 
   if (message.length === 0){
     badInput = true
+    $('#text').removeClass('has-success has-feedback');
     $('#text').addClass('has-error has-feedback');
   } else {
+    $('#text').removeClass('has-error has-feedback');
     $('#text').addClass('has-success has-feedback');
   };
 
