@@ -92,17 +92,18 @@ $(document).ready(function(){
     var userEmail = sessionStorage.getItem('user');
     var formObject = { to: recipients,
                        subject: subject,
-                       text: message}
+                       text: message }
 
     //  if successful, clear localStorage data for the user
     // sendMandrill(userEmail, formObject);
     // sendGrid(userEmail, formObject);
 
-    // reset localStorage and delete any saved drafts
-    setStorage(userEmail);
-    resetForm();
-    sentMessage();
-    setTimeout(sentMessageComplete, 2000);
+    // reset localStorage to delete any saved draft
+    // resetStorage(userEmail);
+    // resetForm();
+    // sentMessage();
+    // setTimeout(sentMessageComplete, 2000);
+    successfullySent(userEmail)
 
     // debugger
     // check if all emails were successfully sent
@@ -114,7 +115,7 @@ $(document).ready(function(){
     // };
 
     // if (result){
-    //   setStorage(userEmail);
+    //   resetStorage(userEmail);
     //   $('html').find('#email-form')[0].reset();
     //   alert('success!')
     // } else {
@@ -179,6 +180,13 @@ function resetForm(){
   $('#text').removeClass('has-error has-success');
 }
 
+function successfullySent(userEmail){
+  resetStorage(userEmail);
+  resetForm();
+  sentMessage();
+  setTimeout(sentMessageComplete, 2000);
+};
+
 function validateEmail(input){
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if(input.match(mailformat)){
@@ -198,7 +206,7 @@ function login(input){
   $('#inputEmailText').val(userObject.text);
 };
 
-function setStorage(input){
+function resetStorage(input){
   var userObject = { 'to': '',
                      'subject': '',
                      'text': ''}
