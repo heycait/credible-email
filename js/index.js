@@ -77,30 +77,7 @@ $(document).ready(function(){
     var subject = $('#inputSubject').val();
     var message = $('#inputEmailText').val();
 
-    var badInput = false;
-
-    if (recipients[0] === ""){
-      badInput = true
-      $('#recipients').addClass('has-error has-feedback');
-    } else {
-      $('#recipients').addClass('has-success has-feedback');
-    };
-
-    if (subject.length === 0){
-      badInput = true
-      $('#subject').addClass('has-error has-feedback');
-    } else {
-      $('#subject').addClass('has-success has-feedback');
-    };
-
-    if (message.length === 0){
-      badInput = true
-      $('#text').addClass('has-error has-feedback');
-    } else {
-      $('#text').addClass('has-success has-feedback');
-    };
-
-    if (badInput === true) {
+    if (emptyFormCheck(recipients, subject, message) === true) {
       return
     };
 
@@ -137,6 +114,33 @@ $(document).ready(function(){
 
   }); // end of this jquery function
 }) // end of doc ready
+
+function emptyFormCheck(recipients, subject, message){
+  var badInput = false;
+
+  if (recipients[0] === ""){
+    badInput = true
+    $('#recipients').addClass('has-error has-feedback');
+  } else {
+    $('#recipients').addClass('has-success has-feedback');
+  };
+
+  if (subject.length === 0){
+    badInput = true
+    $('#subject').addClass('has-error has-feedback');
+  } else {
+    $('#subject').addClass('has-success has-feedback');
+  };
+
+  if (message.length === 0){
+    badInput = true
+    $('#text').addClass('has-error has-feedback');
+  } else {
+    $('#text').addClass('has-success has-feedback');
+  };
+
+  return badInput;
+};
 
 function sentMessage(){
   $('.logged-in-content').hide();
