@@ -5,8 +5,9 @@ MDK = 'GysyE3AY5AqZsimfxRKoyQ'
 
 
 $(document).ready(function(){
-
-  checkDrafts()
+  if (sessionStorage.getItem('user') !== null){
+    checkDrafts()
+  }
 
   $('[data-toggle="popover"]').popover();
 
@@ -84,7 +85,7 @@ $(document).ready(function(){
     var subject = $('#inputSubject').val();
     var message = $('#inputEmailText').val();
 
-    if (emptyFormCheck(recipients, subject, message) === true) {
+    if (isFormEmpty(recipients, subject, message) === true) {
       return
     };
 
@@ -123,6 +124,7 @@ $(document).ready(function(){
   }); // end of this jquery function
 }) // end of doc ready
 
+
 function checkDrafts(){
   var userEmail = sessionStorage.getItem('user');
   var jsonObject = localStorage.getItem(userEmail);
@@ -133,7 +135,7 @@ function checkDrafts(){
   $('#inputEmailText').val(userObject.text);
 };
 
-function emptyFormCheck(recipients, subject, message){
+function isFormEmpty(recipients, subject, message){
   var badInput;
 
   if (recipients[0] === ""){
