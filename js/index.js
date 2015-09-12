@@ -5,16 +5,27 @@ MDK = 'GysyE3AY5AqZsimfxRKoyQ'
 
 
 $(document).ready(function(){
+  if (sessionStorage.getItem('user') !== null){
+    checkDrafts()
+  }
 
   $('[data-toggle="popover"]').popover();
 
+  $("input[name='user-email']").keyup(function(){
+    var input = $(this).val();
+
+    if (validateEmail(input) === true){
+      $('#user-email-form').removeClass("has-error").addClass("has-success");
+    } else {
+      $('#user-email-form').removeClass("has-success").addClass("has-error");
+    };
+  })
+
   $('#submit-user-email').on('click', function(e){
-      var input = $('#user-email-form').find('input[name=user-email]').val();
+      var input = $("input[name='user-email']").val();
       if (validateEmail(input) === false){
         e.preventDefault();
-
         $('#submit-user-email').popover('show');
-
         setTimeout(function(){ $('#submit-user-email').popover('hide') }, 2000);
       } else {
         if(localStorage.getItem(input)){
@@ -69,27 +80,29 @@ $(document).ready(function(){
 
   $('#email-form').submit(function(e){
     e.preventDefault();
-    //  if successful, clear localStorage data for the user
-    var userEmail = sessionStorage.getItem('user');
-    var formObject = { to: $('#inputRecipients').val().split(/[ ,]+/),
-                       subject: $('#inputSubject').val(),
-                       text: $('#inputEmailText').val()};
 
+    var recipients = $('#inputRecipients').val().split(/[ ,]+/);
+    var subject = $('#inputSubject').val();
+    var message = $('#inputEmailText').val();
+
+    if (isFormEmpty(recipients, subject, message) === true) {
+      return
+    };
+
+    var userEmail = sessionStorage.getItem('user');
+    var formObject = { to: recipients,
+                       subject: subject,
+                       text: message}
+
+    //  if successful, clear localStorage data for the user
     // sendMandrill(userEmail, formObject);
-    sendGrid(userEmail, formObject);
+    // sendGrid(userEmail, formObject);
 
     // reset localStorage and delete any saved drafts
     setStorage(userEmail);
-    $('html').find('#email-form')[0].reset();
-    $('.logged-in-content').hide();
-    $('#sent-success').show();
-
-    function sentMessage(){
-      $('#sent-success').hide();
-      $('.logged-in-content').show();
-    };
-
-    setTimeout(sentMessage, 2000);
+    resetForm();
+    sentMessage();
+    setTimeout(sentMessageComplete, 2000);
 
     // debugger
     // check if all emails were successfully sent
@@ -111,6 +124,60 @@ $(document).ready(function(){
   }); // end of this jquery function
 }) // end of doc ready
 
+
+function checkDrafts(){
+  var userEmail = sessionStorage.getItem('user');
+  var jsonObject = localStorage.getItem(userEmail);
+  var userObject = JSON.parse(jsonObject);
+
+  $('#inputRecipients').val(userObject.to);
+  $('#inputSubject').val(userObject.subject);
+  $('#inputEmailText').val(userObject.text);
+};
+
+function isFormEmpty(recipients, subject, message){
+  var badInput;
+
+  if (recipients[0] === ""){
+    badInput = true
+    $('#recipients').removeClass('has-success').addClass('has-error');
+  } else {
+    $('#recipients').removeClass('has-error').addClass('has-success');
+  };
+
+  if (subject.length === 0){
+    badInput = true
+    $('#subject').removeClass('has-success').addClass('has-error');
+  } else {
+    $('#subject').removeClass('has-error').addClass('has-success');
+  };
+
+  if (message.length === 0){
+    badInput = true
+    $('#text').removeClass('has-success').addClass('has-error');
+  } else {
+    $('#text').removeClass('has-error').addClass('has-success');
+  };
+
+  return badInput;
+};
+
+function sentMessage(){
+  $('.logged-in-content').hide();
+  $('#sent-success').show();
+};
+
+function sentMessageComplete(){
+  $('#sent-success').hide();
+  $('.logged-in-content').show();
+};
+
+function resetForm(){
+  $('html').find('#email-form')[0].reset();
+  $('#recipients').removeClass('has-error has-success');
+  $('#subject').removeClass('has-error has-success');
+  $('#text').removeClass('has-error has-success');
+}
 
 function validateEmail(input){
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
