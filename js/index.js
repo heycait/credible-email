@@ -8,16 +8,21 @@ $(document).ready(function(){
 
   $('[data-toggle="popover"]').popover();
 
+  $("input[name='user-email']").keyup(function(){
+    var input = $(this).val();
+
+    if (validateEmail(input) === true){
+      $('#user-email-form').removeClass("has-error").addClass("has-success");
+    } else {
+      $('#user-email-form').removeClass("has-success").addClass("has-error");
+    };
+  })
+
   $('#submit-user-email').on('click', function(e){
-      var input = $('#user-email-form').find('input[name=user-email]').val();
+      var input = $("input[name='user-email']").val();
       if (validateEmail(input) === false){
         e.preventDefault();
-
         $('#submit-user-email').popover('show');
-        $('#user-email-form').addClass("has-error has-feedback");
-        var changeStatus = function(){$('#user-email-form').removeClass("has-error has-feedback")}
-        setTimeout( changeStatus, 2000);
-
         setTimeout(function(){ $('#submit-user-email').popover('hide') }, 2000);
       } else {
         if(localStorage.getItem(input)){
@@ -121,29 +126,23 @@ function emptyFormCheck(recipients, subject, message){
 
   if (recipients[0] === ""){
     badInput = true
-    $('#recipients').removeClass('has-success has-feedback');
-    $('#recipients').addClass('has-error has-feedback');
+    $('#recipients').removeClass('has-success').addClass('has-error');
   } else {
-    $('#recipients').removeClass('has-error has-feedback');
-    $('#recipients').addClass('has-success has-feedback');
+    $('#recipients').removeClass('has-error').addClass('has-success');
   };
 
   if (subject.length === 0){
     badInput = true
-    $('#subject').removeClass('has-success has-feedback');
-    $('#subject').addClass('has-error has-feedback');
+    $('#subject').removeClass('has-success').addClass('has-error');
   } else {
-    $('#subject').removeClass('has-error has-feedback');
-    $('#subject').addClass('has-success has-feedback');
+    $('#subject').removeClass('has-error').addClass('has-success');
   };
 
   if (message.length === 0){
     badInput = true
-    $('#text').removeClass('has-success has-feedback');
-    $('#text').addClass('has-error has-feedback');
+    $('#text').removeClass('has-success').addClass('has-error');
   } else {
-    $('#text').removeClass('has-error has-feedback');
-    $('#text').addClass('has-success has-feedback');
+    $('#text').removeClass('has-error').addClass('has-success');
   };
 
   return badInput;
@@ -161,9 +160,9 @@ function sentMessageComplete(){
 
 function resetForm(){
   $('html').find('#email-form')[0].reset();
-  $('#recipients').removeClass('has-error has-feedback has-success');
-  $('#subject').removeClass('has-error has-feedback has-success');
-  $('#text').removeClass('has-error has-feedback has-success');
+  $('#recipients').removeClass('has-error has-success');
+  $('#subject').removeClass('has-error has-success');
+  $('#text').removeClass('has-error has-success');
 }
 
 function validateEmail(input){
