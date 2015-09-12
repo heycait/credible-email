@@ -6,6 +6,8 @@ MDK = 'GysyE3AY5AqZsimfxRKoyQ'
 
 $(document).ready(function(){
 
+  checkDrafts()
+
   $('[data-toggle="popover"]').popover();
 
   $("input[name='user-email']").keyup(function(){
@@ -120,6 +122,16 @@ $(document).ready(function(){
 
   }); // end of this jquery function
 }) // end of doc ready
+
+function checkDrafts(){
+  var userEmail = sessionStorage.getItem('user');
+  var jsonObject = localStorage.getItem(userEmail);
+  var userObject = JSON.parse(jsonObject);
+
+  $('#inputRecipients').val(userObject.to);
+  $('#inputSubject').val(userObject.subject);
+  $('#inputEmailText').val(userObject.text);
+};
 
 function emptyFormCheck(recipients, subject, message){
   var badInput;

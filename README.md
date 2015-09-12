@@ -9,7 +9,7 @@ Email Providers:
 ## Features
 Users can:
 
-- [X] "Log in" using email address w/validation
+- [X] "Log in" using email address w/validation on keystroke
 - [X] Discard email
 - [X] Save drafts of unfinished emails
 - [X] Come back later and have a populated form with saved draft
@@ -22,7 +22,6 @@ Stretch Goals
 - [ ] Migrate from vanilla JS to Backbone
 - [ ] Switch over to SASS
 
-<!-- Fix login validation so that it turns green as soon as a valid email is entered -->
 <!-- Need to fix issue with popover showing up on valid input after entering invalid input -->
 <!-- Need to fix issue of page refresh and clearing populated form -->
 
