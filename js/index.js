@@ -1,5 +1,5 @@
 SG = 'caitlyn'
-SGKEY = 'e4wBqrclz,8Y'
+SGKEY = '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'
 MDK = 'GysyE3AY5AqZsimfxRKoyQ'
 
 
@@ -10,7 +10,7 @@ $(document).ready(function(){
 
   $('#submit-user-email').on('click', function(e){
       var input = $('#user-email-form').find('input[name=user-email]').val();
-      if (input === "") {
+      if (validateEmail(input) === false){
         e.preventDefault();
 
         $('#submit-user-email').popover('show');
@@ -75,7 +75,8 @@ $(document).ready(function(){
                        subject: $('#inputSubject').val(),
                        text: $('#inputEmailText').val()};
 
-    sendMandrill(userEmail, formObject);
+    // sendMandrill(userEmail, formObject);
+    sendGrid(userEmail, formObject);
 
     // reset localStorage and delete any saved drafts
     setStorage(userEmail);
@@ -111,6 +112,14 @@ $(document).ready(function(){
 }) // end of doc ready
 
 
+function validateEmail(input){
+  var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  if(input.match(mailformat)){
+    return true
+  };
+  return false
+};
+
 function login(input){
   sessionStorage.setItem('user', input);
   $('#userEmailModal').modal('hide');
@@ -136,19 +145,34 @@ function signup(input){
 };
 
 function sendGrid(userEmail, formObject){
+  // var sendgrid = require('sendgrid')(sendgrid_username, sendgrid_password);
+
+  // var email = new sendgrid.Email({
+  //     to: formObject.to,
+  //     from: userEmail,
+  //     subject: formObject.subject,
+  //     text: formObject.text
+  // });
+
   formObject.api_user = SG;
   formObject.api_key = SGKEY;
   formObject.from = userEmail
 
   dataObj = decodeURIComponent($.param(formObject));
 
-
   var request = $.ajax({
     url: 'https://api.sendgrid.com/api/mail.send.json',
+    headers: {
+          'Accept': 'application/json',
+          // 'Access-Control-Allow-Headers': 'x-requested-with',
+          'Content-Type': 'text/plain'
+    },
     method: 'POST',
-    data: dataObj
-  }).done(function(response){
-    return response;
+    dataType: 'json',
+    data: JSON.stringify(formObject)
+  }).success(function(response){
+    debugger
+    alert('success')
   }); // end of ajax
 
   //SendGrid

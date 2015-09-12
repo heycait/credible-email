@@ -9,7 +9,7 @@ Email Providers:
 ## Features
 Users can:
 
-- [X] "Log in" using email address
+- [X] "Log in" using email address w/validation
 - [X] Discard email
 - [X] Save drafts of unfinished emails
 - [X] Come back later and have a populated form with saved draft
@@ -17,7 +17,7 @@ Users can:
 - [X] Send emails (to one or more recipients)
 
 Stretch Goals
-- [ ] Add proper validations (to login and email form)
+- [ ] Add proper validations to email form and multiple email recipients
 - [ ] Allow users to see sent messages
 - [ ] Migrate from vanilla JS to Backbone
 - [ ] Switch over to SASS
