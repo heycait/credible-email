@@ -14,6 +14,9 @@ $(document).ready(function(){
         e.preventDefault();
 
         $('#submit-user-email').popover('show');
+        $('#user-email-form').addClass("has-error has-feedback");
+        var changeStatus = function(){$('#user-email-form').removeClass("has-error has-feedback")}
+        setTimeout( changeStatus, 2000);
 
         setTimeout(function(){ $('#submit-user-email').popover('hide') }, 2000);
       } else {
@@ -70,26 +73,50 @@ $(document).ready(function(){
   $('#email-form').submit(function(e){
     e.preventDefault();
     //  if successful, clear localStorage data for the user
+    var recipients = $('#inputRecipients').val().split(/[ ,]+/);
+    var subject = $('#inputSubject').val();
+    var message = $('#inputEmailText').val();
+
+    var badInput = false;
+
+    if (recipients[0] === ""){
+      badInput = true
+      $('#recipients').addClass('has-error has-feedback');
+    } else {
+      $('#recipients').addClass('has-success has-feedback');
+    };
+
+    if (subject.length === 0){
+      badInput = true
+      $('#subject').addClass('has-error has-feedback');
+    } else {
+      $('#subject').addClass('has-success has-feedback');
+    };
+
+    if (message.length === 0){
+      badInput = true
+      $('#text').addClass('has-error has-feedback');
+    } else {
+      $('#text').addClass('has-success has-feedback');
+    };
+
+    if (badInput === true) {
+      return
+    };
+
     var userEmail = sessionStorage.getItem('user');
-    var formObject = { to: $('#inputRecipients').val().split(/[ ,]+/),
-                       subject: $('#inputSubject').val(),
-                       text: $('#inputEmailText').val()};
+    var formObject = { to: recipients,
+                       subject: subject,
+                       text: message}
 
     // sendMandrill(userEmail, formObject);
-    sendGrid(userEmail, formObject);
+    // sendGrid(userEmail, formObject);
 
     // reset localStorage and delete any saved drafts
     setStorage(userEmail);
-    $('html').find('#email-form')[0].reset();
-    $('.logged-in-content').hide();
-    $('#sent-success').show();
-
-    function sentMessage(){
-      $('#sent-success').hide();
-      $('.logged-in-content').show();
-    };
-
-    setTimeout(sentMessage, 2000);
+    resetForm();
+    sentMessage();
+    setTimeout(sentMessageComplete, 2000);
 
     // debugger
     // check if all emails were successfully sent
@@ -111,6 +138,22 @@ $(document).ready(function(){
   }); // end of this jquery function
 }) // end of doc ready
 
+function sentMessage(){
+  $('.logged-in-content').hide();
+  $('#sent-success').show();
+};
+
+function sentMessageComplete(){
+  $('#sent-success').hide();
+  $('.logged-in-content').show();
+};
+
+function resetForm(){
+  $('html').find('#email-form')[0].reset();
+  $('#recipients').removeClass('has-error has-feedback has-success');
+  $('#subject').removeClass('has-error has-feedback has-success');
+  $('#text').removeClass('has-error has-feedback has-success');
+}
 
 function validateEmail(input){
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
