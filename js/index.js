@@ -204,7 +204,7 @@ function resetStorage(input){
 }
 
 function signup(input){
-  setStorage(input);
+  resetStorage(input);
   sessionStorage.setItem('user', input);
   $('#userEmailModal').modal('hide');
 };
