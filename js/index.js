@@ -94,33 +94,23 @@ $(document).ready(function(){
                        subject: subject,
                        text: message }
 
-    //  if successful, clear localStorage data for the user
-    // sendMandrill(userEmail, formObject);
     // sendGrid(userEmail, formObject);
+    sendMandrill(userEmail, formObject);
+    // Send POST request to Mandrill
+      // if successful, clear localStorage data for user
+      // if unsuccessful, make SendGrid request
+        // Check to ensure status sent and then clear localStorage
 
-    // reset localStorage to delete any saved draft
-    // resetStorage(userEmail);
-    // resetForm();
-    // sentMessage();
-    // setTimeout(sentMessageComplete, 2000);
     successfullySent(userEmail)
 
-    // debugger
-    // check if all emails were successfully sent
-    // result from Mandrill call not being returned successfully.. can't do a proper check
+    // Check if all emails were successfully sent in Mandrill request
+    // Result from Mandrill call not being returned successfully.. can't do a proper check
+    // Do something similar for SendGrid
     // for (var i = 0; i < formObject.to.length; i++){
     //   if (result[i]['status'] === 'error'){
     //     result = false
     //   };
     // };
-
-    // if (result){
-    //   resetStorage(userEmail);
-    //   $('html').find('#email-form')[0].reset();
-    //   alert('success!')
-    // } else {
-    //   alert('somethign went wrong.... :(')
-    // }
 
   }); // end of this jquery function
 }) // end of doc ready
