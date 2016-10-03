@@ -1,7 +1,7 @@
 # Credible Email
 A single-page frontend email client using JavaScript, jQuery/AJAX, and Bootstrap. Built on top of the SendGrid and Mandrill APIs with abstraction between the two email service providers--if one service goes down, Credible Email quickly falls over to the other provider without affecting the user.
 
-**Issues with CORS using SendGrid's API. Therefore, the application is not built on two email service providers but only on Mandrill. Comments in the code outline process for switching between the providers if one were to fail. Reached out on the SendGrid docs source code page and was advised to contact support by one of the collaborators for a solution.**
+**Issues with CORS using SendGrid's API. Therefore, the application is not built on two email service providers but only on Mandrill. Comments in the code outline process for switching between the providers if one were to fail. Reached out on the SendGrid docs source code page and was advised to contact support by one of the collaborators for a solution. Can be tracked on SendGrid issue [1417](https://github.com/sendgrid/docs/issues/1417).**
 
 Email Providers:
 
